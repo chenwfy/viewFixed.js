@@ -1,5 +1,7 @@
 (function (win) {
     var ua = win.navigator.userAgent,
+        inWeixin = -1 != ua.indexOf("MicroMessenger"),
+        isUCWeb = -1 != ua.indexOf("UCBrowser"),
         isWP = -1 != ua.indexOf("Windows Phone"),
         isIPod = /iPod/.test(ua) && !isWP,
         isIPad = /iPad/.test(ua) && !isWP,
@@ -16,11 +18,22 @@
             var time = Number(arguments[0]) || 0;
             time > 0 && metaEl.setAttribute('content', initViewport);
             var setViewport = function () {
-                var sWidth = docEl.getBoundingClientRect().width, scale = sWidth / baseWidth;
-                metaEl.setAttribute('content', 'initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no, width=' + baseWidth);
+                var sWidth = docEl.getBoundingClientRect().width,
+                    scale = sWidth / baseWidth,
+                    setViewport = 'initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no, width=' + baseWidth;
+
+                if (isAndroid && !inWeixin && !isUCWeb) {
+                    setViewport += ', target-densitydpi=device-dpi';
+                }
+
+                metaEl.setAttribute('content', setViewport);
             };
             (time == 0 && setViewport()) || (time > 0 && win.setTimeout(setViewport, time));
         };
+
+    if (isAndroid && !inWeixin && !isUCWeb) {
+        initViewport += ', target-densitydpi=device-dpi';
+    }
 
     if (isMobile) {
         resetViewport();
