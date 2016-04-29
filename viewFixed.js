@@ -19,7 +19,7 @@
         isAndroidPad = isAndroid && !isAndroidPhone,
         isMobile = isWindowsPhone || isAndroidPhone || isAndroidPad || isIPhone || isIPod || isIPad,
         baseWidth = (isIPad || isAndroidPad) ? 720.0 : 480.0,
-        densitydpi = isAndroid && !inWeixin && !isUCWeb ? ', target-densitydpi=device-dpi' : '',
+        densitydpi = isAndroid && !isWeixin && !isUCWeb ? ', target-densitydpi=device-dpi' : '',
         baseViewportContent = 'initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width' + densitydpi,
         resetViewport = function () {
             var time = ~~arguments[0],
