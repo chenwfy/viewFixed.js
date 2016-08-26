@@ -34,9 +34,7 @@
             (time == 0 && setViewport()) || (time > 0 && viewportEl.setAttribute('content', baseViewportContent) && win.setTimeout(setViewport, time));
         };
 
-    isMobile
-    && resetViewport()
-    && (win.onorientationchange = function () { resetViewport(200); })
-    && (win.Device = { WindowsPhone: isWindowsPhone, AndroidPhone: isAndroidPhone, AndroidPad: isAndroidPad, IPhone: isIPhone, IPod: isIPod, IPad: isIPad })
-    && (win.Runtime = { Weixin: isWeixin, Html5Plus: isH5Plus, UCWeb: isUCWeb });    //这里后续需要继续完善不同的运行环境，如：微博内置浏览器、QQ内置浏览器、系统原生浏览器等
+    isMobile && resetViewport() && (win.onorientationchange = function () { resetViewport(200); });
+    win.Device = { WindowsPhone: isWindowsPhone, AndroidPhone: isAndroidPhone, AndroidPad: isAndroidPad, IPhone: isIPhone, IPod: isIPod, IPad: isIPad };
+    win.Runtime = { Weixin: isWeixin, Html5Plus: isH5Plus, UCWeb: isUCWeb };    //这里后续需要继续完善不同的运行环境，如：微博内置浏览器、QQ内置浏览器、系统原生浏览器等
 })(window);
